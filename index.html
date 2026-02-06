@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="gambar/logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="gambar/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucapan Ulang Tahun & Gallery</title>
+    <style>
+        :root {
+            --pastel-pink: #ffd6e0;
+            --pastel-mint: #c1f0d2;
+            --pastel-lavender: #d4c4fb;
+            --pastel-peach: #ffdac1;
+            --pastel-blue: #b5ead7;
+            --soft-gray: #f8f9fa;
+            --text-dark: #333333;
+            --text-light: #5a5a5a;
+        }
+        
+        body {
+            font-family: "Comic Sans", "Comic Sans MS", "Chalkboard", "ChalkboardSE-Regular", sans-serif;
+            background-color: #ffebee;
+            margin: 0;
+            overflow-x: hidden;
+            text-align: center;
+        }
+        
+        .navigation-menu {
+            background-color: #e91e63;
+            padding: 15px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navigation-menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        .navigation-menu a:hover {
+            background-color: #c2185b;
+        }
+        
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        /* Birthday Section Styles */
+        #birthday-section {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-peach));
+        }
+        
+        #cake-container {
+            cursor: pointer;
+            animation: float 2s ease-in-out infinite;
+            margin-bottom: 30px;
+        }
+        
+        #cake-container img{
+            width: 250px;
+            height: 250px;
+            background-color:rgb(255, 255, 255) ;
+            border-radius: 200px;
+        }
+
+        #cake {
+            width: 350px;
+            height: auto;
+            transition: transform 0.3s;
+        }
+        
+        #cake.clicked {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        
+        #card {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            position: relative;
+            transform: scale(0);
+            opacity: 0;
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-peach));
+            border: 5px solid #f8bbd0;
+            margin: 20px auto;
+        }
+        
+        #card.open {
+            display: block;
+            animation: cardOpen 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        h1 {
+            color: #e91e63;
+            margin-top: 15px;
+            margin-bottom: 0px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            font-size: 2.5em;
+        }
+        
+        p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+        
+        .signature {
+            font-style: italic;
+            margin-top: 30px;
+            color: #e91e63;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .click-hint {
+            color: #e91e63;
+            font-weight: bold;
+            margin-top: 10px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Gallery Section Styles */
+        #gallery-section {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-lavender));
+            padding: 60px 20px;
+        }
+        
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .gallery-title {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            color: #e91e63;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        
+        .slider-nav {
+            margin-top: 20px;
+        }
+        
+        .slider-nav button {
+            background: #e91e63;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        
+        .slider-nav button:hover {
+            background: #c2185b;
+            transform: scale(1.05);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+        
+        @keyframes cardOpen {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Confetti styles */
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            opacity: 0;
+            animation: confetti-fall 8s linear forwards;
+            z-index: 99;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Ribbon effect */
+        .ribbon {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .ribbon::before,
+        .ribbon::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            background-color: #e91e63;
+            transform: rotate(-45deg);
+        }
+        
+        .ribbon::before {
+            width: 200px;
+            height: 40px;
+            top: 40px;
+            left: -50px;
+        }
+        
+        .ribbon::after {
+            width: 40px;
+            height: 200px;
+            top: -50px;
+            left: 40px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="birthday-section" class="section">
+        <div id="cake-container">
+            <img id="cake" src="kado1.png" alt="Kue Ulang Tahun">
+            <div class="click-hint">Klik aku!</div>
+        </div>
+        <div id="card">
+            <h1>YEAY akhirnya kelar juga sidangnya 🎉</h1>
+            <p>semua capek, deg-degannya, dan rasa tegang selama ini akhirnya kebayar juga. Dari panik TOEFL sampai akhirnya officially selesai, perjalanan kamu panjang banget dan aku bangga karena kamu bisa ngelewatin tiap prosesnya satu per satu. I’m so proud to witness you reach this moment. Lihat kamu jatuh, bangkit, belajar, dan terus berkembang sampai sejauh ini tuh bener-bener kerasa. Sekarang waktunya santai dulu, tarik napas pelan-pelan, nikmatin rasa lega dan tenang setelah semua perjuangan ini🤍</p>
+            <p class="signature">From,<br>~Jeklut</p>
+        </div>
+        
+        <audio id="birthdaySound" src="ihad.mp3" preload="auto"></audio>
+    </div>
+    
+    <div id="gallery-section" class="section">
+        <div class="gallery-container">
+            <h1 class="gallery-title">Gallery Kenangan Indah</h1>
+            <div class="slider">
+                <div class="slide active">
+                    <img src="xoxo.jpeg" alt="Nature 1"> 
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button id="prev">Previous</button>
+                <button id="next">Next</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Birthday section functionality
+        const cake = document.getElementById('cake');
+        const cakeContainer = document.getElementById('cake-container');
+        const card = document.getElementById('card');
+        const birthdaySound = document.getElementById('birthdaySound');
+        
+        cakeContainer.addEventListener('click', function() {
+            // Animasi getar
+            cake.classList.add('clicked');
+            
+            // Mainkan suara
+            birthdaySound.play();
+            
+            // Sembunyikan kue setelah animasi getar selesai
+            setTimeout(() => {
+                cakeContainer.style.display = 'none';
+                
+                // Tampilkan kartu dengan efek buka hadiah
+                card.classList.add('open');
+                
+                // Buat confetti
+                createConfetti();
+            }, 500);
+            
+            // Hentikan animasi float
+            cakeContainer.style.animation = 'none';
+        });
+        
+        function createConfetti() {
+            const colors = ['#e91e63', '#00bcd4', '#ffeb3b', '#4caf50', '#9c27b0', '#ff9800', '#ff5722', '#cddc39'];
+            const shapes = ['circle', 'square', 'triangle'];
+            const container = document.body;
+            
+            for (let i = 0; i < 200; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Atur properti acak
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = 5 + Math.random() * 3;
+                const size = 8 + Math.random() * 12;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                confetti.style.left = `${left}vw`;
+                confetti.style.animationDelay = `${delay}s`;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = color;
+                
+                // Bentuk acak
+                if (shape === 'circle') {
+                    confetti.style.borderRadius = '50%';
+                } else if (shape === 'triangle') {
+                    confetti.style.width = '0';
+                    confetti.style.height = '0';
+                    confetti.style.backgroundColor = 'transparent';
+                    confetti.style.borderLeft = `${size/2}px solid transparent`;
+                    confetti.style.borderRight = `${size/2}px solid transparent`;
+                    confetti.style.borderBottom = `${size}px solid ${color}`;
+                }
+                
+                container.appendChild(confetti);
+                
+                // Hapus confetti setelah animasi selesai
+                setTimeout(() => {
+                    confetti.remove();
+                }, 8000);
+            }
+        }
+        
+        // Gallery slider functionality
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Auto slide every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>
