@@ -24,33 +24,6 @@
             margin: 0;
             overflow-x: hidden;
             text-align: center;
-        }
-        
-        .navigation-menu {
-            background-color: #e91e63;
-            padding: 15px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .navigation-menu a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            padding: 8px 15px;
-            border-radius: 20px;
-            transition: background-color 0.3s;
-            font-weight: bold;
-        }
-        
-        .navigation-menu a:hover {
-            background-color: #c2185b;
-        }
-        
-        .section {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -60,10 +33,6 @@
         }
         
         /* Birthday Section Styles */
-        #birthday-section {
-            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-peach));
-        }
-        
         #cake-container {
             cursor: pointer;
             animation: float 2s ease-in-out infinite;
@@ -93,7 +62,8 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            max-width: 700px;
+            width: 90%;
             position: relative;
             transform: scale(0);
             opacity: 0;
@@ -110,7 +80,7 @@
         h1 {
             color: #e91e63;
             margin-top: 15px;
-            margin-bottom: 0px;
+            margin-bottom: 20px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
             font-size: 2.5em;
         }
@@ -138,84 +108,53 @@
         }
         
         /* Gallery Section Styles */
-        #gallery-section {
-            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-lavender));
-            padding: 60px 20px;
-        }
-        
         .gallery-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-top: 30px;
             text-align: center;
         }
         
         .gallery-title {
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 2.5em;
             color: #e91e63;
+            margin-bottom: 20px;
+            font-size: 1.8em;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #e91e63;
         }
         
-        .slider {
-            position: relative;
+        .gallery-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .gallery-item {
             width: 100%;
-            height: 500px;
-            overflow: hidden;
+            max-width: 500px;
             border-radius: 10px;
+            overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
-        .slide {
-            position: absolute;
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .gallery-item img {
             width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
+            height: auto;
+            display: block;
         }
         
-        .slide.active {
-            opacity: 1;
-        }
-        
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .slide-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
+        .gallery-caption {
+            background: rgba(233, 30, 99, 0.9);
             color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 1.2em;
-        }
-        
-        .slider-nav {
-            margin-top: 20px;
-        }
-        
-        .slider-nav button {
-            background: #e91e63;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            margin: 0 10px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background 0.3s;
+            padding: 10px;
             font-size: 1em;
-            font-weight: bold;
-        }
-        
-        .slider-nav button:hover {
-            background: #c2185b;
-            transform: scale(1.05);
+            text-align: center;
         }
         
         /* Animations */
@@ -262,68 +201,65 @@
             }
         }
         
-        /* Ribbon effect */
-        .ribbon {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            overflow: hidden;
-            z-index: 10;
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            #card {
+                padding: 20px;
+            }
+            
+            .gallery-item {
+                max-width: 100%;
+            }
         }
         
-        .ribbon::before,
-        .ribbon::after {
-            content: '';
-            position: absolute;
-            z-index: -1;
-            background-color: #e91e63;
-            transform: rotate(-45deg);
-        }
-        
-        .ribbon::before {
-            width: 200px;
-            height: 40px;
-            top: 40px;
-            left: -50px;
-        }
-        
-        .ribbon::after {
-            width: 40px;
-            height: 200px;
-            top: -50px;
-            left: 40px;
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6em;
+            }
+            
+            p {
+                font-size: 1em;
+            }
+            
+            #cake-container img {
+                width: 200px;
+                height: 200px;
+            }
+            
+            #cake {
+                width: 280px;
+            }
         }
     </style>
 </head>
 <body> 
-    <div id="birthday-section" class="section">
-        <div id="cake-container">
-            <img id="cake" src="kado1.png" alt="Kue Ulang Tahun">
-            <div class="click-hint">Klik aku!</div>
-        </div>
-        <div id="card">
-            <h1>YEAY akhirnya kelar juga sidangnya 🎉</h1>
-            <p>semua capek, deg-degannya, dan rasa tegang selama ini akhirnya kebayar juga. Dari panik TOEFL sampai akhirnya officially selesai, perjalanan kamu panjang banget dan aku bangga karena kamu bisa ngelewatin tiap prosesnya satu per satu. I’m so proud to witness you reach this moment. Lihat kamu jatuh, bangkit, belajar, dan terus berkembang sampai sejauh ini tuh bener-bener kerasa. Sekarang waktunya santai dulu, tarik napas pelan-pelan, nikmatin rasa lega dan tenang setelah semua perjuangan ini🤍</p>
-            <p class="signature">From,<br>~Jeklut</p>
-        </div>
-        
-        <audio id="birthdaySound" src="ihad.mp3" preload="auto"></audio>
+    <div id="cake-container">
+        <img id="cake" src="kado1.png" alt="Kue Ulang Tahun">
+        <div class="click-hint">Klik aku!</div>
     </div>
     
-    <div id="gallery-section" class="section">
+    <div id="card">
+        <h1>YEAY akhirnya kelar juga sidangnya 🎉</h1>
+        <p>Semua capek, deg-degannya, dan rasa tegang selama ini akhirnya kebayar juga. Dari panik TOEFL sampai akhirnya officially selesai, perjalanan kamu panjang banget dan aku bangga karena kamu bisa ngelewatin tiap prosesnya satu per satu. I'm so proud to witness you reach this moment. Lihat kamu jatuh, bangkit, belajar, dan terus berkembang sampai sejauh ini tuh bener-bener kerasa. Sekarang waktunya santai dulu, tarik napas pelan-pelan, nikmatin rasa lega dan tenang setelah semua perjuangan ini🤍</p>
+        
+        <div class="signature">From,<br>~Jeklut</div>
+        
+        <!-- Gallery Section Inside Card -->
         <div class="gallery-container">
-            <h1 class="gallery-title">Gallery Kenangan Indah</h1>
-            <div class="slider">
-                <div class="slide active">
-                    <img src="xoxo.jpeg" alt="Nature 1"> 
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="xoxo.jpeg" alt="Kenangan 1">
                 </div>
-            </div>
-            <div class="slider-nav">
-                <button id="prev">Previous</button>
-                <button id="next">Next</button>
+                
             </div>
         </div>
     </div>
+    
+    <audio id="birthdaySound" src="ihad.mp3" preload="auto"></audio>
     
     <script>
         // Birthday section functionality
@@ -398,31 +334,20 @@
             }
         }
         
-        // Gallery slider functionality
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prev');
-        const nextBtn = document.getElementById('next');
-        let currentSlide = 0;
-
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            currentSlide = (n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
+        // Scroll ke gallery jika ada banyak foto
+        function scrollToGallery() {
+            const galleryTitle = document.querySelector('.gallery-title');
+            if (galleryTitle) {
+                galleryTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
-
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-
-        // Auto slide every 5 seconds
-        setInterval(nextSlide, 5000);
+        
+        // Otomatis scroll ke gallery setelah card terbuka (untuk gallery yang panjang)
+        setTimeout(() => {
+            if (document.querySelectorAll('.gallery-item').length > 3) {
+                scrollToGallery();
+            }
+        }, 1500);
     </script>
 </body>
 </html>
